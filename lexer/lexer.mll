@@ -1,25 +1,32 @@
 {
-open Tokens
-exception Eof
+open Parser
 }
 
 
 rule main = parse
        [' ' '\009' '\012']+
         { main lexbuf } (* skip whitespace *)
-     | ['\n' ]
-        { Lexing.new_line lexbuf; NEWLINE (info lexbuf) }
+     | ['\n' ]+
+        { Lexing.new_line lexbuf; NEWLINE }
      | ['A'-'Z' 'a'-'z' '_']
        ['A'-'Z' 'a'-'z' '_' '0'-'9' '\'']*
-        { IDENT (info lexbuf, Lexing.lexeme lexbuf) }
+        { IDENT (Lexing.lexeme lexbuf) }
      | ['0'-'9']+
-       { INT (info lexbuf, int_of_string (Lexing.lexeme lexbuf)) }
+       { INT (int_of_string (Lexing.lexeme lexbuf)) }
      | '+'
-       { PLUS (info lexbuf) }
+       { PLUS }
      | '-'
-       { MINUS (info lexbuf) }
+       { MINUS }
      | '='
-       { EQUAL (info lexbuf) }
+       { EQUAL }
      | eof
-       { EOF (info lexbuf) }
-     | _ { ILLEGAL (info lexbuf, Lexing.lexeme lexbuf) }
+       { EOF }
+     | _ { ILLEGAL (Lexing.lexeme lexbuf) }
+
+
+{
+let from_channel channel =
+    Lexing.from_channel ~with_positions:(true) channel
+
+let get_tok lb = main lb
+}

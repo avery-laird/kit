@@ -1,0 +1,13 @@
+(env (dev (flags (:standard -w -32 -w -39))))
+
+(menhir
+ (modules parser))
+
+(library
+ (name ast)
+ (modules ast))
+
+(library
+ (name parser)
+ (modules parser)
+ (libraries ast))

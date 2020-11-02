@@ -1,0 +1,11 @@
+(env (dev (flags (:standard -w -32 -w -39))))
+
+(executable
+ (name lexer)
+ (modules lexer)
+ (libraries lexer))
+
+(executable
+ (name parser)
+ (modules parser)
+ (libraries parser lexer))
