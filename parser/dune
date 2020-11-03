@@ -1,13 +1,19 @@
-(env (dev (flags (:standard -w -32 -w -39))))
+(env (dev (flags (:standard -w -26 -w -32 -w -33 -w -39))))
 
 (menhir
  (modules parser))
 
 (library
  (name ast)
- (modules ast))
+ (modules ast)
+ (libraries fmt))
 
 (library
  (name parser)
  (modules parser)
  (libraries ast))
+
+(library
+ (name pprint_ast)
+ (modules pprint_ast)
+ (libraries core fmt ast))

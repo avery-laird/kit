@@ -1,5 +1,5 @@
 (* let std = Parser.parse_test stdin *)
 
 let () =
-  match Parser.pattern Lexer.get_tok (Lexer.from_channel stdin) with
-  | Ast.Int (i) -> print_endline ("match int: " ^ (string_of_int i))
+  let expr = Parser.expression Lexer.get_tok (Lexer.from_channel stdin) in
+  Pprint_ast.pprint_expr Fmt.stdout ~indent:"" expr

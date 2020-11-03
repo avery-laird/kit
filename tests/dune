@@ -8,4 +8,9 @@
 (executable
  (name parser)
  (modules parser)
- (libraries parser lexer))
+ (libraries parser lexer pprint_ast fmt))
+
+(executable
+ (name pprint_ast)
+ (modules pprint_ast)
+ (libraries pprint_ast))
